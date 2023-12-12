@@ -1,130 +1,130 @@
 {
   "dogs": [
     {
-      "name": "Jonatan",
-      "image": "/src/assets/boxer.png",
-      "description": "Shoes after Dollar Marketing female generating Diesel",
+      "name": "Dominic",
+      "image": "/assets/corgi.png",
+      "description": "brr Curacao South Bicycle override",
       "isFavorite": true,
       "id": 0
     },
     {
-      "name": "Anthony",
-      "image": "/src/assets/cowardly.png",
-      "description": "plum Savings female Ghana programming solutions miniaturise",
-      "isFavorite": true,
+      "name": "Alayna",
+      "image": "/assets/cowardly.png",
+      "description": "Pickup Future Luxurious Kansas virtual Northwest productivity",
+      "isFavorite": false,
       "id": 1
     },
     {
-      "name": "Ana",
-      "image": "/src/assets/boxer.png",
-      "description": "Analyst function withdrawal United while",
+      "name": "Rhiannon",
+      "image": "/assets/corgi.png",
+      "description": "customized Electronic Interactions overriding foolishly female withdrawal accusamus",
+      "isFavorite": true,
+      "id": 2
+    },
+    {
+      "name": "Scarlett",
+      "image": "/assets/boxer.png",
+      "description": "Electric Investor Coupe parallelism fatherly",
+      "isFavorite": true,
+      "id": 3
+    },
+    {
+      "name": "Barrett",
+      "image": "/assets/corgi.png",
+      "description": "skean bifurcated Account Granite gee female East South",
       "isFavorite": false,
       "id": 4
     },
     {
-      "name": "Alfred",
-      "image": "/src/assets/cowardly.png",
-      "description": "Northwest DRAM henry applications South",
-      "isFavorite": false,
+      "name": "Eden",
+      "image": "/assets/dalmation.png",
+      "description": "Investment optimal Electric moratorium Estonia Shirt considering transmit",
+      "isFavorite": true,
       "id": 5
     },
     {
-      "name": "Violette",
-      "image": "/src/assets/boxer.png",
-      "description": "embrace Web Southwest perspiciatis though",
+      "name": "Jude",
+      "image": "/assets/boxer.png",
+      "description": "relationships Specialist enraged protocol filter scalable pish mint",
       "isFavorite": true,
       "id": 6
     },
     {
-      "name": "Kenton",
-      "image": "/src/assets/cowardly.png",
-      "description": "Bedfordshire Human tempora Managed Electronic Directives Nissan expedite",
-      "isFavorite": true,
+      "name": "Jennings",
+      "image": "/assets/chihuahua.avif",
+      "description": "East Health hack Southeast orange",
+      "isFavorite": false,
       "id": 7
     },
     {
-      "name": "Asa",
-      "image": "/src/assets/dalmation.png",
-      "description": "Minivan Neither Road Movies radian",
+      "name": "Nash",
+      "image": "/assets/corgi.png",
+      "description": "Sedan SUV repeatedly SUV Porsche Hat collaboration male",
       "isFavorite": false,
       "id": 8
     },
     {
-      "name": "Nicolas",
-      "image": "/src/assets/chihuahua.avif",
-      "description": "an Savings brink transmit card",
-      "isFavorite": false,
+      "name": "Herminia",
+      "image": "/assets/blue-heeler.png",
+      "description": "copying Kids Cadillac ew Lead port Investment parsing",
+      "isFavorite": true,
       "id": 9
     },
     {
-      "name": "Elton",
-      "image": "/src/assets/blue-heeler.png",
-      "description": "Nihonium Electronic Nissan Metal because Computer white",
-      "isFavorite": false,
+      "name": "Jaiden",
+      "image": "/assets/dalmation.png",
+      "description": "Bronze Chicken cultivate Northwest Refined",
+      "isFavorite": true,
       "id": 10
     },
     {
-      "name": "Dewayne",
-      "image": "/src/assets/dalmation.png",
-      "description": "Security override firewall Southeast apropos Usability orchid barrel",
+      "name": "Caesar",
+      "image": "/assets/boxer.png",
+      "description": "programming firewall Bentley BMX Maserati Darmstadtium Hybrid City",
       "isFavorite": false,
       "id": 11
     },
     {
-      "name": "Art",
-      "image": "/src/assets/blue-heeler.png",
-      "description": "Global ha Genderflux payment Metal pixel Money",
-      "isFavorite": true,
+      "name": "Romaine",
+      "image": "/assets/chihuahua.avif",
+      "description": "Account asynchronous Honda Diesel great Thulium Automotive",
+      "isFavorite": false,
       "id": 12
     },
     {
-      "name": "Sebastian",
-      "image": "/src/assets/boxer.png",
-      "description": "Associate Gasoline Savings Hybrid Developer",
-      "isFavorite": true,
+      "name": "Alycia",
+      "image": "/assets/corgi.png",
+      "description": "redundant Garden potentially Coupe rim Oriental pariatur",
+      "isFavorite": false,
       "id": 13
     },
     {
-      "name": "Lambert",
-      "image": "/src/assets/chihuahua.avif",
-      "description": "drive reek Marvin compress executive Coordinator Track bluetooth",
+      "name": "Lauretta",
+      "image": "/assets/boxer.png",
+      "description": "hence Bacon Operative Sausages female",
       "isFavorite": false,
       "id": 14
     },
     {
-      "name": "Kris",
-      "image": "/src/assets/blue-heeler.png",
-      "description": "Beryllium Chevrolet partnerships focus Southeast Poland salmon",
+      "name": "Christ",
+      "image": "/assets/corgi.png",
+      "description": "India metrics User port Jewelery",
       "isFavorite": true,
       "id": 15
     },
     {
-      "name": "Trudie",
-      "image": "/src/assets/boxer.png",
-      "description": "connecting blue National Movies Interactions ack Tandem Shirt",
+      "name": "Jerome",
+      "image": "/assets/boxer.png",
+      "description": "Assurance asynchronous silver Handcrafted unbearably iure steradian",
       "isFavorite": false,
       "id": 16
     },
     {
-      "name": "Meaghan",
-      "image": "/src/assets/dalmation.png",
-      "description": "lux Manager North applications Rufiyaa",
-      "isFavorite": false,
+      "name": "Rocky",
+      "image": "/assets/corgi.png",
+      "description": "Rubber bluetooth Bicycle Dollar gosh Northeast Bicycle Southwest",
+      "isFavorite": true,
       "id": 17
-    },
-    {
-      "name": "Vallie",
-      "image": "/src/assets/chihuahua.avif",
-      "description": "Lead synergistic noisy operating Passenger female Salad Rubber",
-      "isFavorite": true,
-      "id": 18
-    },
-    {
-      "name": "Newton",
-      "image": "/src/assets/blue-heeler.png",
-      "description": "Planner maxime invoice ROI granular ouch Franc",
-      "isFavorite": true,
-      "id": 19
     }
   ]
 }
