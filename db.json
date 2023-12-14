@@ -11,7 +11,7 @@
       "name": "Alayna",
       "image": "/assets/cowardly.png",
       "description": "Pickup Future Luxurious Kansas virtual Northwest productivity",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 1
     },
     {
@@ -53,7 +53,7 @@
       "name": "Jennings",
       "image": "/assets/chihuahua.avif",
       "description": "East Health hack Southeast orange",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 7
     },
     {
@@ -123,7 +123,7 @@
       "name": "Rocky",
       "image": "/assets/corgi.png",
       "description": "Rubber bluetooth Bicycle Dollar gosh Northeast Bicycle Southwest",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 17
     }
   ]

@@ -1,10 +1,7 @@
 import { useContext, useState, useRef } from "react";
 import { dogPictures } from "../dog-pictures";
-import { Requests } from "../api";
-
-import { Dog } from "../types";
-import toast from "react-hot-toast";
-import { DogContext } from "../Providers/DogsProvider";
+import { DogsContext } from "../Providers/DogsProvider";
+import { IsLoadingContext } from "../Providers/IsLoadingProvider";
 
 const defaultSelectedImage = dogPictures.BlueHeeler;
 
@@ -12,23 +9,9 @@ export const CreateDogForm = () => {
   const [nameInput, setNameInput] = useState<string>("");
   const [descriptionInput, setDescriptionInput] = useState<string>("");
   const [imageInput, setImageInput] = useState<string>(defaultSelectedImage);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setAllDogs } = useContext(DogContext);
+  const { postDog } = useContext(DogsContext);
+  const { isLoading } = useContext(IsLoadingContext);
   const dropDown = useRef<HTMLSelectElement>(null);
-
-  const refetchDogData = () => {
-    return Requests.getAllDogs().then(setAllDogs);
-  };
-
-  const postDog = (dog: Omit<Dog, "id">) => {
-    setIsLoading(true);
-    Requests.postDog(dog)
-      .then(refetchDogData)
-      .then(() => {
-        toast.success(`Created ${dog.name}`);
-      })
-      .finally(() => setIsLoading(false));
-  };
 
   const reset = () => {
     setNameInput("");
@@ -39,7 +22,6 @@ export const CreateDogForm = () => {
 
   return (
     <form
-      action=""
       id="create-dog-form"
       onSubmit={(e) => {
         e.preventDefault();

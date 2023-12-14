@@ -1,71 +1,74 @@
-import { ReactNode, useContext, useEffect } from "react";
-import { SelectorContext } from "../Providers/SelectorsProvider";
-import { TSelectorToggle } from "../types";
-import { DogContext } from "../Providers/DogsProvider";
-import { Requests } from "../api";
-import { favoritedDogs, unfavoritedDogs } from "./Dogs";
+import { ReactNode, useContext } from "react";
+import { ActiveComponentContext } from "../Providers/ActiveComponentProvider";
+import { ActiveComponent } from "../types";
+import { DogsContext } from "../Providers/DogsProvider";
 
 export const Section = ({
   label,
   children,
 }: {
-  // No more props than these two allowed
   label: string;
   children: ReactNode;
 }) => {
-  const { isSelectorActive, setIsSelectorActive } = useContext(SelectorContext);
-  const { allDogs, setAllDogs } = useContext(DogContext);
+  const { activeComponent, setActiveComponent } = useContext(
+    ActiveComponentContext
+  );
+  const { favoritedDogs, unfavoritedDogs } = useContext(DogsContext);
 
-  const toggleActiveClassName = (index: number) =>
-    isSelectorActive[index] ? "active" : "";
-
-  const setActiveSelector = (index: number) => {
-    const newState = isSelectorActive.map((activeState, activeStateIndex) => {
-      const newActiveState = activeState === true ? false : true;
-      return activeStateIndex === index ? newActiveState : false;
-    }) as unknown as TSelectorToggle;
-    setIsSelectorActive(newState);
+  const determineActiveComponent = (component: ActiveComponent) => {
+    if (component === activeComponent) {
+      setActiveComponent("all");
+    } else {
+      setActiveComponent(component);
+    }
   };
 
-  const refetchDogData = () => {
-    return Requests.getAllDogs().then(setAllDogs);
+  const generateClassName = (
+    activeComponent: ActiveComponent,
+    currentComponent: ActiveComponent
+  ) => {
+    return activeComponent === currentComponent ? "active" : "";
   };
 
-  useEffect(() => {
-    refetchDogData().catch(console.log);
-  }, []);
+  const favoritedClassName = generateClassName(activeComponent, "favorited");
+  const unfavoritedClassName = generateClassName(
+    activeComponent,
+    "unfavorited"
+  );
+  const createDogFormClassName = generateClassName(
+    activeComponent,
+    "create-dog-form"
+  );
 
-  const favoritedCount = favoritedDogs(allDogs).length;
-  const unfavoritedCount = unfavoritedDogs(allDogs).length;
+  const favoritedCount = favoritedDogs.length;
+  const unfavoritedCount = unfavoritedDogs.length;
 
   return (
     <section id="main-section">
       <div className="container-header">
         <div className="container-label">{label}</div>
         <div className="selectors">
-          {/* This should display the favorited count */}
           <div
-            className={`selector ${toggleActiveClassName(0)}`}
+            className={`selector ${favoritedClassName}`}
             onClick={() => {
-              setActiveSelector(0);
+              determineActiveComponent("favorited");
             }}
           >
             favorited ( {favoritedCount} )
           </div>
 
-          {/* This should display the unfavorited count */}
           <div
-            className={`selector ${toggleActiveClassName(1)}`}
+            className={`selector ${unfavoritedClassName}`}
             onClick={() => {
-              setActiveSelector(1);
+              determineActiveComponent("unfavorited");
             }}
           >
             unfavorited ( {unfavoritedCount} )
           </div>
           <div
-            className={`selector ${toggleActiveClassName(2)}`}
+            className={`selector ${createDogFormClassName}`}
             onClick={() => {
-              setActiveSelector(2);
+              determineActiveComponent("create-dog-form");
             }}
           >
             create dog
