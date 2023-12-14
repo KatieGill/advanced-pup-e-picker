@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { Dog } from "../types";
+import { Dog, dogSchema } from "../types";
 import { ReactNode, createContext, useContext, useState } from "react";
 import { Requests } from "../api";
 import { IsLoadingContext } from "./IsLoadingProvider";
