@@ -1,15 +1,20 @@
-import { useContext } from "react";
-import { ActiveComponentContext } from "../Providers/ActiveComponentProvider";
-import { DogsContext } from "../Providers/DogsProvider";
-import { Dog } from "../types";
+import { ActiveComponent, Dog } from "../types";
 import { DogCard } from "./DogCard";
-import { IsLoadingContext } from "../Providers/IsLoadingProvider";
+import { useDogsContext } from "../Providers/DogsProvider";
 
-export const Dogs = () => {
-  const { allDogs, deleteDog, updateDog, favoritedDogs, unfavoritedDogs } =
-    useContext(DogsContext);
-  const { activeComponent } = useContext(ActiveComponentContext);
-  const { isLoading } = useContext(IsLoadingContext);
+export const Dogs = ({
+  activeComponent,
+}: {
+  activeComponent: ActiveComponent;
+}) => {
+  const {
+    allDogs,
+    deleteDog,
+    updateDogIsFavorite,
+    favoritedDogs,
+    unfavoritedDogs,
+    isLoading,
+  } = useDogsContext();
 
   const determineDogArray = (): Dog[] => {
     switch (activeComponent) {
@@ -23,6 +28,7 @@ export const Dogs = () => {
         return [];
     }
   };
+
   const dogArray = determineDogArray();
 
   return (
@@ -36,10 +42,10 @@ export const Dogs = () => {
               deleteDog(dog);
             }}
             onHeartClick={() => {
-              updateDog(dog, false);
+              updateDogIsFavorite(dog, false);
             }}
             onEmptyHeartClick={() => {
-              updateDog(dog, true);
+              updateDogIsFavorite(dog, true);
             }}
             isLoading={isLoading}
           />

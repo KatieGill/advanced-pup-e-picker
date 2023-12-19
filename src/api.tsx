@@ -1,11 +1,18 @@
+import { z } from "zod";
 import { Dog, dogSchema } from "./types";
 
 const baseUrl = "http://localhost:3000";
 
 const getAllDogs = () => {
   return fetch(`${baseUrl}/dogs`)
-    .then((response) => response.json())
-    .then((data) => dogSchema.parse(data));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to fetch data");
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => z.array(dogSchema).parse(data));
 };
 
 const postDog = (dog: Omit<Dog, "id">) => {
@@ -14,16 +21,24 @@ const postDog = (dog: Omit<Dog, "id">) => {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to create dog");
+      } else {
+        return response.json();
+      }
+    })
     .then((data) => dogSchema.parse(data));
 };
 
 const deleteDogRequest = (dog: Dog) => {
   return fetch(`${baseUrl}/dogs/${dog.id}`, {
     method: "DELETE",
-  })
-    .then((response) => response.json())
-    .then((data) => dogSchema.parse(data));
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Unable to delete dog");
+    }
+  });
 };
 
 const patchFavoriteForDog = (dog: Dog, isFavorite: boolean) => {
@@ -32,7 +47,13 @@ const patchFavoriteForDog = (dog: Dog, isFavorite: boolean) => {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to update favorite");
+      } else {
+        return response.json();
+      }
+    })
     .then((data) => dogSchema.parse(data));
 };
 

@@ -1,32 +1,44 @@
 import toast from "react-hot-toast";
-import { Dog, dogSchema } from "../types";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { Dog } from "../types";
+import {
+  ReactNode,
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import { Requests } from "../api";
-import { IsLoadingContext } from "./IsLoadingProvider";
 
 type DogsProvider = {
   allDogs: Dog[];
   setAllDogs: (input: Dog[]) => void;
-  postDog: (input: Omit<Dog, "id">) => void;
+  isLoading: boolean;
+  postDog: (input: Omit<Dog, "id">) => Promise<void>;
   deleteDog: (dogInput: Dog) => void;
-  updateDog: (dogInput: Dog, isFavoriteInput: boolean) => void;
+  updateDogIsFavorite: (dogInput: Dog, isFavoriteInput: boolean) => void;
   favoritedDogs: Dog[];
   unfavoritedDogs: Dog[];
 };
 
-export const DogsContext = createContext<DogsProvider>({} as DogsProvider);
+const DogsContext = createContext<DogsProvider>({} as DogsProvider);
 
 export const DogsProvider = ({ children }: { children: ReactNode }) => {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const { setIsLoading } = useContext(IsLoadingContext);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const refetchDogData = (): Promise<Dog[] | void> => {
+  const refetchDogData = () => {
     return Requests.getAllDogs().then(setAllDogs);
   };
 
+  useEffect(() => {
+    refetchDogData().catch((error: Error) => {
+      console.log(error.message);
+    });
+  }, []);
+
   const postDog = (dog: Omit<Dog, "id">) => {
     setIsLoading(true);
-    Requests.postDog(dog)
+    return Requests.postDog(dog)
       .then(refetchDogData)
       .then(() => {
         toast.success(`Created ${dog.name}`);
@@ -42,7 +54,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const updateDog = (dogInput: Dog, isFavoriteInput: boolean) => {
+  const updateDogIsFavorite = (dogInput: Dog, isFavoriteInput: boolean) => {
     setAllDogs(
       allDogs.map((dog) =>
         dog.id === dogInput.id ? { ...dog, isFavorite: isFavoriteInput } : dog
@@ -51,7 +63,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
     Requests.patchFavoriteForDog(dogInput, isFavoriteInput).catch(() => {
       setAllDogs(allDogs);
       toast.error(
-        `Unable to ${isFavoriteInput === true ? "favorite" : "unfavorite"} ${
+        `Unable to ${isFavoriteInput ? "favorite" : "unfavorite"} ${
           dogInput.name
         }`
       );
@@ -66,9 +78,10 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
       value={{
         allDogs,
         setAllDogs,
+        isLoading,
         postDog,
         deleteDog,
-        updateDog,
+        updateDogIsFavorite,
         favoritedDogs,
         unfavoritedDogs,
       }}
@@ -76,4 +89,18 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </DogsContext.Provider>
   );
+};
+
+export const useDogsContext = () => {
+  const context = useContext(DogsContext);
+  return {
+    allDogs: context.allDogs,
+    setAllDogs: context.setAllDogs,
+    isLoading: context.isLoading,
+    postDog: context.postDog,
+    deleteDog: context.deleteDog,
+    updateDogIsFavorite: context.updateDogIsFavorite,
+    favoritedDogs: context.favoritedDogs,
+    unfavoritedDogs: context.unfavoritedDogs,
+  };
 };

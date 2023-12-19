@@ -1,7 +1,7 @@
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { dogPictures } from "../dog-pictures";
-import { DogsContext } from "../Providers/DogsProvider";
-import { IsLoadingContext } from "../Providers/IsLoadingProvider";
+import { useDogsContext } from "../Providers/DogsProvider";
+import toast from "react-hot-toast";
 
 const defaultSelectedImage = dogPictures.BlueHeeler;
 
@@ -9,14 +9,16 @@ export const CreateDogForm = () => {
   const [nameInput, setNameInput] = useState<string>("");
   const [descriptionInput, setDescriptionInput] = useState<string>("");
   const [imageInput, setImageInput] = useState<string>(defaultSelectedImage);
-  const { postDog } = useContext(DogsContext);
-  const { isLoading } = useContext(IsLoadingContext);
+  const { postDog, isLoading } = useDogsContext();
   const dropDown = useRef<HTMLSelectElement>(null);
 
-  const reset = () => {
+  const resetState = () => {
     setNameInput("");
     setDescriptionInput("");
     setImageInput(defaultSelectedImage);
+    {
+      /*Return select to default */
+    }
     if (dropDown.current) dropDown.current.value = defaultSelectedImage;
   };
 
@@ -30,8 +32,9 @@ export const CreateDogForm = () => {
           image: imageInput,
           description: descriptionInput,
           isFavorite: false,
-        });
-        reset();
+        })
+          .then(resetState)
+          .catch(() => toast.error(`Unable to create ${nameInput}`));
       }}
     >
       <h4>Create a New Dog</h4>

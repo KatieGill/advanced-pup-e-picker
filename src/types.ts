@@ -10,4 +10,8 @@ export const dogSchema = z.object({
 
 export type Dog = z.infer<typeof dogSchema>;
 
-export type ActiveComponent = "all" | "favorited" | "unfavorited" | "create-dog-form";
+export type ActiveComponent =
+  | "all"
+  | "favorited"
+  | "unfavorited"
+  | "create-dog-form";

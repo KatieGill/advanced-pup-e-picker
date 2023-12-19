@@ -1,27 +1,12 @@
-import { useContext } from "react";
+import { useState } from "react";
 import { CreateDogForm } from "./Components/CreateDogForm";
 import { Dogs } from "./Components/Dogs";
 import { Section } from "./Components/Section";
-import { ActiveComponentContext } from "./Providers/ActiveComponentProvider";
-import { DogsContext } from "./Providers/DogsProvider";
-import { useEffect } from "react";
-import { Requests } from "./api";
-import { dogSchema } from "./types";
+import { ActiveComponent } from "./types";
 
 export function App() {
-  const { activeComponent } = useContext(ActiveComponentContext);
-  const { setAllDogs } = useContext(DogsContext);
-
-  useEffect(() => {
-    const refetchDogData = () => {
-      return Requests.getAllDogs()
-        .then((data) => dogSchema.parse(data))
-        .then(setAllDogs);
-    };
-    refetchDogData().catch(() => {
-      throw new Error("unable to fetch data");
-    });
-  }, [setAllDogs]);
+  const [activeComponent, setActiveComponent] =
+    useState<ActiveComponent>("all");
 
   const shouldShowForm = activeComponent === "create-dog-form";
 
@@ -30,8 +15,16 @@ export function App() {
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
-      <Section label={"Dogs: "}>
-        {shouldShowForm ? <CreateDogForm /> : <Dogs />}
+      <Section
+        label={"Dogs: "}
+        activeComponent={activeComponent}
+        setActiveComponent={setActiveComponent}
+      >
+        {shouldShowForm ? (
+          <CreateDogForm />
+        ) : (
+          <Dogs activeComponent={activeComponent} />
+        )}
       </Section>
     </div>
   );

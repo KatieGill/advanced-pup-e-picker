@@ -1,21 +1,21 @@
-import { ReactNode, useContext } from "react";
-import { ActiveComponentContext } from "../Providers/ActiveComponentProvider";
+import { ReactNode } from "react";
 import { ActiveComponent } from "../types";
-import { DogsContext } from "../Providers/DogsProvider";
+import { useDogsContext } from "../Providers/DogsProvider";
 
 export const Section = ({
   label,
+  activeComponent,
+  setActiveComponent,
   children,
 }: {
   label: string;
+  activeComponent: ActiveComponent;
+  setActiveComponent: (activeComponent: ActiveComponent) => void;
   children: ReactNode;
 }) => {
-  const { activeComponent, setActiveComponent } = useContext(
-    ActiveComponentContext
-  );
-  const { favoritedDogs, unfavoritedDogs } = useContext(DogsContext);
+  const { favoritedDogs, unfavoritedDogs } = useDogsContext();
 
-  const determineActiveComponent = (component: ActiveComponent) => {
+  const toggleActiveComponent = (component: ActiveComponent) => {
     if (component === activeComponent) {
       setActiveComponent("all");
     } else {
@@ -51,7 +51,7 @@ export const Section = ({
           <div
             className={`selector ${favoritedClassName}`}
             onClick={() => {
-              determineActiveComponent("favorited");
+              toggleActiveComponent("favorited");
             }}
           >
             favorited ( {favoritedCount} )
@@ -60,7 +60,7 @@ export const Section = ({
           <div
             className={`selector ${unfavoritedClassName}`}
             onClick={() => {
-              determineActiveComponent("unfavorited");
+              toggleActiveComponent("unfavorited");
             }}
           >
             unfavorited ( {unfavoritedCount} )
@@ -68,7 +68,7 @@ export const Section = ({
           <div
             className={`selector ${createDogFormClassName}`}
             onClick={() => {
-              determineActiveComponent("create-dog-form");
+              toggleActiveComponent("create-dog-form");
             }}
           >
             create dog
