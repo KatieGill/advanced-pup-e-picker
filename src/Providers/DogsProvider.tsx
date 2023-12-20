@@ -20,7 +20,7 @@ type DogsProvider = {
   unfavoritedDogs: Dog[];
 };
 
-const DogsContext = createContext<DogsProvider>({} as DogsProvider);
+const DogsContext = createContext<DogsProvider | undefined>(undefined);
 
 export const DogsProvider = ({ children }: { children: ReactNode }) => {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
@@ -48,7 +48,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
 
   const deleteDog = (dogInput: Dog) => {
     setAllDogs(allDogs.filter((dog) => dog.id !== dogInput.id));
-    Requests.deleteDogRequest(dogInput).catch(() => {
+    return Requests.deleteDogRequest(dogInput).catch(() => {
       setAllDogs(allDogs);
       toast.error(`Unable to delete ${dogInput.name}`);
     });
@@ -60,7 +60,7 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
         dog.id === dogInput.id ? { ...dog, isFavorite: isFavoriteInput } : dog
       )
     );
-    Requests.patchFavoriteForDog(dogInput, isFavoriteInput).catch(() => {
+    return Requests.patchFavoriteForDog(dogInput, isFavoriteInput).catch(() => {
       setAllDogs(allDogs);
       toast.error(
         `Unable to ${isFavoriteInput ? "favorite" : "unfavorite"} ${
@@ -93,14 +93,9 @@ export const DogsProvider = ({ children }: { children: ReactNode }) => {
 
 export const useDogsContext = () => {
   const context = useContext(DogsContext);
-  return {
-    allDogs: context.allDogs,
-    setAllDogs: context.setAllDogs,
-    isLoading: context.isLoading,
-    postDog: context.postDog,
-    deleteDog: context.deleteDog,
-    updateDogIsFavorite: context.updateDogIsFavorite,
-    favoritedDogs: context.favoritedDogs,
-    unfavoritedDogs: context.unfavoritedDogs,
-  };
+  if (!context)
+    throw new Error(
+      "You should never use this outside of the context of a DogsProvider"
+    );
+  return context;
 };

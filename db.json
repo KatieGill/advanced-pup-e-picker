@@ -39,7 +39,7 @@
       "name": "Jennings",
       "image": "/assets/chihuahua.avif",
       "description": "East Health hack Southeast orange",
-      "isFavorite": false,
+      "isFavorite": true,
       "id": 7
     },
     {
@@ -111,13 +111,6 @@
       "description": "Rubber bluetooth Bicycle Dollar gosh Northeast Bicycle Southwest",
       "isFavorite": false,
       "id": 17
-    },
-    {
-      "name": "Macy",
-      "image": "/assets/boxer.jpeg",
-      "description": "",
-      "isFavorite": false,
-      "id": 19
     },
     {
       "name": "mr. peanut",
